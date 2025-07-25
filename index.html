@@ -1,0 +1,446 @@
+<!DOCTYPE html>
+<html lang="pt-BR">
+<head>
+  <meta charset="utf-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1" />
+  <title>Comunicação Antirracista| Edição Julho das Pretas 2025</title>
+  <meta name="description" content="Site educativo com cards interativos que mostram frases racistas do cotidiano, por que ferem e como substituir. Edição Julho das Pretas 2025." />
+
+  <!-- Google Font -->
+  <link href="https://fonts.googleapis.com/css2?family=Nunito:wght@400;600;800&display=swap" rel="stylesheet">
+
+  <style>
+    :root {
+      --brown: #4b2c20;
+      --brown-700: #3d241b;
+      --gold: #d9a441;
+      --terracotta: #c0603c;
+      --earth: #8b5e3c;
+      --sand: #fff6ec;
+      --text: #2d1c16;
+      --white: #ffffff;
+      --shadow: 0 14px 28px rgba(0,0,0,.12), 0 10px 10px rgba(0,0,0,.08);
+      --radius: 18px;
+      --transition: 0.6s cubic-bezier(.2,.8,.2,1);
+      --maxw: 1180px;
+    }
+
+    * { box-sizing: border-box; }
+
+    body {
+      margin: 0;
+      padding: 0;
+      background: var(--sand);
+      color: var(--text);
+      font-family: "Nunito", sans-serif;
+    }
+
+    /* HERO */
+    .hero {
+      position: relative;
+      min-height: 85vh;
+      display: grid;
+      place-items: center;
+      overflow: hidden;
+      color: var(--white);
+    }
+
+    .hero__img {
+      position: absolute;
+      inset: 0;
+      width: 100%;
+      height: 100%;
+      object-fit: cover;
+    }
+
+    .hero__overlay {
+      position: absolute;
+      inset: 0;
+      background: linear-gradient(120deg, rgba(75,44,32,.92) 0%, rgba(192,96,60,.75) 60%, rgba(217,164,65,.6) 100%);
+    }
+
+    .hero__content {
+      position: relative;
+      text-align: center;
+      padding: 0 1.25rem;
+      max-width: 860px;
+    }
+
+    .hero__title {
+      font-size: clamp(2.2rem, 4vw + 1rem, 4rem);
+      font-weight: 800;
+      margin: 0 0 .75rem 0;
+    }
+
+    .hero__subtitle {
+      font-size: clamp(1rem, 1.2vw + .6rem, 1.4rem);
+      font-weight: 600;
+      color: #ffe9c5;
+      margin: 0 0 1.8rem 0;
+    }
+
+    /* SECTION */
+    .section {
+      max-width: var(--maxw);
+      margin: 0 auto;
+      padding: 4rem 1.25rem;
+      text-align: center;
+    }
+
+    .section__title {
+      font-size: clamp(1.6rem, 3vw + 1rem, 2.4rem);
+      color: var(--brown);
+      font-weight: 800;
+      margin-bottom: .5rem;
+    }
+
+    .section__subtitle {
+      color: var(--earth);
+      margin-bottom: 2rem;
+      font-weight: 600;
+    }
+
+    /* GRID */
+    .grid {
+      display: grid;
+      grid-template-columns: repeat(auto-fit, minmax(290px, 1fr));
+      gap: 1.5rem;
+    }
+
+    /* FLIP CARDS (dinâmicos) */
+    .card {
+      perspective: 1200px;
+      height: 320px;
+      outline: none;
+    }
+
+    .card__inner {
+      position: relative;
+      width: 100%;
+      height: 100%;
+      border-radius: var(--radius);
+      box-shadow: var(--shadow);
+      transform-style: preserve-3d;
+      transition: transform var(--transition);
+      cursor: pointer;
+    }
+
+    .card.is-flipped .card__inner {
+      transform: rotateY(180deg);
+    }
+
+    .card__face {
+      position: absolute;
+      inset: 0;
+      backface-visibility: hidden;
+      border-radius: var(--radius);
+      display: flex;
+      flex-direction: column;
+      justify-content: center;
+      align-items: center;
+      padding: 1.25rem 1.1rem 1.4rem;
+      text-align: center;
+    }
+
+    .card__face--front {
+      background: #fff;
+      color: var(--brown);
+    }
+
+    .card__face--back {
+      background: var(--white);
+      color: var(--text);
+      transform: rotateY(180deg);
+      border: 2px solid var(--gold);
+      padding: 1.5rem;
+    }
+
+    .card__title {
+      font-size: 1.2rem;
+      font-weight: 800;
+      margin-bottom: .6rem;
+      color: var(--brown);
+    }
+
+    .card__info {
+      font-size: 0.95rem;
+      line-height: 1.45;
+    }
+
+    .hint {
+      font-size: .85rem;
+      margin-top: 1rem;
+      opacity: .6;
+    }
+
+    /* FOOTER */
+    footer {
+      background: #8b5e3c; /* marrom médio */
+      color: var(--white);
+      padding: 2rem 1rem;
+      text-align: center;
+    }
+
+    .footer__author {
+      font-size: 1.6rem;
+      font-weight: 00;
+      color: #fff; /* branco */
+      text-transform: capitalize; /* só a primeira letra de cada palavra em maiúsculo */
+      margin: 0 0 .5rem 0;
+    }
+
+    .footer__bio {
+      font-size: 0.75rem;
+      color: #ffffff;      /* bio branca */
+      max-width: 500px;
+      margin: 0 auto .8rem auto;
+      line-height: 1.45;
+    }
+
+    .footer__email {
+      color: var(--gold);   /* e-mail amarelo */
+      text-decoration: none;
+      font-weight:00;
+      display: inline-block;
+      margin-top: 0.3rem;
+      font-size: 1rem;
+    }
+
+    /* Acessibilidade: foco visível */
+    .card:focus-visible .card__inner {
+      box-shadow: 0 0 0 3px rgba(217,164,65,.6);}
+
+
+          /* ALERTA */
+    .alerta {
+  background: var(--gold);
+  color: var(--brown-700);
+  text-align: center;
+  font-weight: 600;
+  padding: 0.3rem 0.7rem;
+  margin: 1rem auto 2.2rem auto; /* aumente a margem inferior */
+  border: 1.5px solid var(--brown-700);
+  border-radius: var(--radius);
+  box-shadow: 0 2px 6px rgba(0,0,0,.07);
+  max-width: 340px;
+  font-size: 0.92rem;
+  opacity: 0.85;
+}
+  </style>
+</head>
+<body>
+
+  <!-- HERO -->
+  <header class="hero">
+    <img class="hero__img" src="https://images.pexels.com/photos/13286040/pexels-photo-13286040.jpeg" alt="Mulher negra com adereço" />
+    <div class="hero__overlay"></div>
+    <div class="hero__content">
+      <h1 class="hero__title">Comunicação Antirracista </h1>
+      <p class="hero__subtitle">Aprenda a se comunicar de forma respeitosa e inclusiva com mulheres negras. Pequenas mudanças nas palavras fazem grandes diferenças nas relações.</p>
+    </div>
+  </header>
+
+  <!-- CARDS -->
+  <section class="section">
+    <h2 class="section__title">Racismo cotidiano em frases “comuns”</h2>
+    <p class="section__subtitle">Clique nos cards abaixo para descobrir alternativas respeitosas para expressões que devem ser evitadas.</p>
+
+    <div class="grid">
+
+      <!-- 1 -->
+      <article class="card" tabindex="0" aria-label="Card 1 - “Você é exótica.”">
+        <div class="card__inner">
+          <div class="card__face card__face--front">
+            <h3 class="card__title">“Você é exótica.”</h3>
+            <p class="card__info">Racismo que se disfarça de elogio</p>
+            <div class="hint">Clique para virar</div>
+          </div>
+          <div class="card__face card__face--back">
+            <h3 class="card__title">Por que fere</h3>
+            <p class="card__info">
+              Sugere que a mulher negra é “fora do padrão”, reforçando que o “normal” é branco.
+            </p>
+            <h4 style="margin-top:1rem;">Como substituir</h4>
+            <p class="card__info"><strong>“Você tem uma beleza marcante.”</strong></p>
+          </div>
+        </div>
+      </article>
+
+      <!-- 2 -->
+      <article class="card" tabindex="0" aria-label="Card 2 - “Seu cabelo é duro.”">
+        <div class="card__inner">
+          <div class="card__face card__face--front">
+            <h3 class="card__title">“Seu cabelo é duro.”</h3>
+            <p class="card__info">Estética negra como ofensa</p>
+            <div class="hint">Clique para virar</div>
+          </div>
+          <div class="card__face card__face--back">
+            <h3 class="card__title">Por que fere</h3>
+            <p class="card__info">
+              Trata a textura natural do cabelo crespo como algo ruim ou indesejado.
+            </p>
+            <h4 style="margin-top:1rem;">Como substituir</h4>
+            <p class="card__info"><strong>“Seu cabelo está cheio de personalidade.”</strong></p>
+          </div>
+        </div>
+      </article>
+
+      <!-- 3 -->
+      <article class="card" tabindex="0" aria-label="Card 3 - “Você é bonita para uma negra.”">
+        <div class="card__inner">
+          <div class="card__face card__face--front">
+            <h3 class="card__title">“Você é bonita para uma negra.”</h3>
+            <p class="card__info">Elogio comparativo e racista</p>
+            <div class="hint">Clique para virar</div>
+          </div>
+          <div class="card__face card__face--back">
+            <h3 class="card__title">Por que fere</h3>
+            <p class="card__info">
+              Coloca a beleza negra como exceção.
+            </p>
+            <h4 style="margin-top:1rem;">Como substituir</h4>
+            <p class="card__info"><strong>“Você é linda.”</strong></p>
+          </div>
+        </div>
+      </article>
+
+      <!-- 4 -->
+      <article class="card" tabindex="0" aria-label="Card 4 - “Você fala bem para uma pessoa negra.”">
+        <div class="card__inner">
+          <div class="card__face card__face--front">
+            <h3 class="card__title">“Você fala bem para uma pessoa negra.”</h3>
+            <p class="card__info">Surpresa com capacidade intelectual</p>
+            <div class="hint">Clique para virar</div>
+          </div>
+          <div class="card__face card__face--back">
+            <h3 class="card__title">Por que fere</h3>
+            <p class="card__info">
+              Reforça estereótipos que associam pessoas negras à ignorância.
+            </p>
+            <h4 style="margin-top:1rem;">Como substituir</h4>
+            <p class="card__info"><strong>“Sua forma de se expressar é admirável.”</strong></p>
+          </div>
+        </div>
+      </article>
+
+      <!-- 5 -->
+      <article class="card" tabindex="0" aria-label="Card 5 - “Você é tão inteligente... nem parece negra.”">
+        <div class="card__inner">
+          <div class="card__face card__face--front">
+            <h3 class="card__title">“Você é tão inteligente... nem parece negra.”</h3>
+            <p class="card__info">Surpresa com capacidade intelectual</p>
+            <div class="hint">Clique para virar</div>
+          </div>
+          <div class="card__face card__face--back">
+            <h3 class="card__title">Por que fere</h3>
+            <p class="card__info">
+              Supõe que inteligência não é característica de pessoas negras.
+            </p>
+            <h4 style="margin-top:1rem;">Como substituir</h4>
+            <p class="card__info"><strong>“Sua inteligência é admirável.”</strong></p>
+          </div>
+        </div>
+      </article>
+
+      <!-- 6 -->
+      <article class="card" tabindex="0" aria-label="Card 6 - “Posso tocar no seu cabelo?”">
+        <div class="card__inner">
+          <div class="card__face card__face--front">
+            <h3 class="card__title">“Posso tocar no seu cabelo?”</h3>
+            <p class="card__info">Fetichização do corpo negro</p>
+            <div class="hint">Clique para virar</div>
+          </div>
+          <div class="card__face card__face--back">
+            <h3 class="card__title">Por que fere</h3>
+            <p class="card__info">
+              Fetichiza e invade o corpo negro como objeto de curiosidade.
+            </p>
+            <h4 style="margin-top:1rem;">Como substituir</h4>
+            <p class="card__info"><strong>“Seu cabelo está lindo!”</strong></p>
+          </div>
+        </div>
+      </article>
+
+      <!-- 7 -->
+      <article class="card" tabindex="0" aria-label="Card 7 - “Preto é raça ruim.”">
+        <div class="card__inner">
+          <div class="card__face card__face--front">
+            <h3 class="card__title">“Preto é raça ruim.”</h3>
+            <p class="card__info">Racismo explícito</p>
+            <div class="hint">Clique para virar</div>
+          </div>
+          <div class="card__face card__face--back">
+            <h3 class="card__title">Por que fere</h3>
+            <p class="card__info">
+              Reproduz racismo explícito e violento.
+            </p>
+            <h4 style="margin-top:1rem;">Como substituir</h4>
+            <p class="card__info">Reforce a <strong>valorização da identidade negra</strong>.</p>
+          </div>
+        </div>
+      </article>
+
+      <!-- 8 -->
+      <article class="card" tabindex="0" aria-label="Card 8 - “Você nem é tão negra assim.”">
+        <div class="card__inner">
+          <div class="card__face card__face--front">
+            <h3 class="card__title">“Você nem é tão negra assim.”</h3>
+            <p class="card__info">Colorismo: quando a cor da pele define “valor”</p>
+            <div class="hint">Clique para virar</div>
+          </div>
+          <div class="card__face card__face--back">
+            <h3 class="card__title">Por que fere</h3>
+            <p class="card__info">
+              Favorece peles mais claras, invalida identidades e reforça padrões eurocêntricos.
+            </p>
+          </div>
+        </div>
+      </article>
+    </div>
+  </section>
+
+  <div class="alerta">Racismo é crime! Denuncie pelo Disque 100.</div>
+
+  <!-- FOOTER -->
+  <footer>
+    <p class="footer__author">Alainabsilva/ALAINA-BASTOS</p>
+    <p class="footer__bio">
+      Mulher negra e periférica, bacharela em Administração, pós-graduada em Gerenciamento de Projetos, afroempreendedora, especialista em Políticas Públicas de Equidade Racial e de Gênero.
+    </p>
+    <a href="mailto:alayna_silva@hotmail.com" class="footer__email" aria-label="Enviar e-mail para Alaína Bastos da Silva">
+      <svg xmlns="http://www.w3.org/2000/svg" width="18" height="18" fill="currentColor" viewBox="0 0 24 24" aria-hidden="true">
+        <path d="M20 4H4c-1.103 0-2 .897-2 2v12c0 1.103.897 2 2 2h16c1.103 0 2-.897 2-2V6c0-1.103-.897-2-2-2zm0 4l-8 5-8-5V6l8 5 8-5v2z"/>
+      </svg>
+      alayna_silva@hotmail.com
+    </a>
+    <footer>
+      <div class="footer__content">
+        <small class="footer__copyright">
+          &copy; 2025 Edição Julho das Pretas 
+        </small>
+      </div>
+    </footer>
+  </footer>
+
+  <script>
+    // Torna os cards flipáveis via clique e teclado (Enter/Espaço)
+    const cards = document.querySelectorAll('.card');
+    cards.forEach(card => {
+      const toggle = () => card.classList.toggle('is-flipped');
+
+      card.addEventListener('click', toggle);
+
+      card.addEventListener('keypress', (e) => {
+        if (e.key === 'Enter' || e.key === ' ') {
+          e.preventDefault();
+          toggle();
+        }
+      });
+    });
+  </script>
+</body>
+</html>
+
+
+
+
